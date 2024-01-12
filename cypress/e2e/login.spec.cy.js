@@ -1,6 +1,6 @@
 describe('Criando Indicadores',()=>{
-    it('Criando indicador Completo - Usando Faixa',()=>{
-     
+    it('Teste Login',()=>{
+      cy.visit('www.amazon.com.br/')
       cy.login('', '', '')
     })
 })

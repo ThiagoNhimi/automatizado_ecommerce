@@ -8,10 +8,8 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 });
 
 
-Cypress.Commands.add('login', (url, email, senha) => {
+Cypress.Commands.add('login', (email, senha) => {
     cy.fixture('loginDatas').then((dados)=>{
-
-      cy.visit(url || dados.url);
       cy.get(NAV_BAR.CONTAS_E_LISTAS)
         .click()
       cy.get(LOGIN.CAMPO_EMAIL)
