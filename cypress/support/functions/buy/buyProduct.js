@@ -43,17 +43,19 @@ const fecharPedido = () => {
   cy.login();
 
   cy.document().then((doc) => {
-    const elementoExiste = doc.querySelector(
+    const elementosOpcoesPagamento = doc.querySelectorAll(
       DADOS_FECHAR_PEDIDO.OPCOES_PAGAMENTO
     );
+    const bannerTela = doc.querySelectorAll('.maple-banner__container');
 
-    if (elementoExiste) {
-      // Elemento está presente no DOM
+    if (elementosOpcoesPagamento.length > 0 || bannerTela.length > 0) {
+      // Elemento Opções de Pagamento está presente no DOM
+      cy.get(DADOS_FECHAR_PEDIDO.OPCOES_PAGAMENTO).eq(0).click({ force: true });
       cy.get(DADOS_FECHAR_PEDIDO.OPCOES_PAGAMENTO).eq(1).click({ force: true });
     } else {
-      // Elemento não está presente no DOM
-
+      // Elemento Enviar para Endereço está presente no DOM
       cy.get(DADOS_FECHAR_PEDIDO.ENVIAR_PARA_ENDERECO).click();
+      cy.get(DADOS_FECHAR_PEDIDO.OPCOES_PAGAMENTO).eq(0).click({ force: true });
       cy.get(DADOS_FECHAR_PEDIDO.OPCOES_PAGAMENTO).eq(1).click({ force: true });
     }
 
@@ -61,36 +63,36 @@ const fecharPedido = () => {
   });
 
   /*  cy.document().then((doc) => {
-    const elementosRecomendados = doc.querySelectorAll(
-      DADOS_FECHAR_PEDIDO.EDITAR_ENDERECO
-    );
+      const elementosRecomendados = doc.querySelectorAll(
+        DADOS_FECHAR_PEDIDO.EDITAR_ENDERECO
+      );
 
-    if (elementosRecomendados.length > 0) {
-      const $elemento = Cypress.$(elementosRecomendados); // Converta para jQuery para usar as funções do Cypress
+      if (elementosRecomendados.length > 0) {
+        const $elemento = Cypress.$(elementosRecomendados); // Converta para jQuery para usar as funções do Cypress
 
-      if ($elemento.length > 0 && $elemento.is(':visible')) {
-        // Se o elemento for visível, faça uma ação
-        cy.get(DADOS_FECHAR_PEDIDO.ALTERAR).click();
-        cy.get(DADOS_FECHAR_PEDIDO.EDITAR_ENDERECO).click();
+        if ($elemento.length > 0 && $elemento.is(':visible')) {
+          // Se o elemento for visível, faça uma ação
+          cy.get(DADOS_FECHAR_PEDIDO.ALTERAR).click();
+          cy.get(DADOS_FECHAR_PEDIDO.EDITAR_ENDERECO).click();
+        } else {
+          // Elemento não é visível
+          cy.log('O botão "Agora Não" não está visível.');
+        }
       } else {
-        // Elemento não é visível
-        cy.log('O botão "Agora Não" não está visível.');
+        // Elemento não está presente no DOM
+        cy.log('O botão "Agora Não" não foi encontrado no DOM.');
       }
-    } else {
-      // Elemento não está presente no DOM
-      cy.log('O botão "Agora Não" não foi encontrado no DOM.');
-    }
-  });
+    });
 
-  if (nome) {
-    cy.get(DADOS_FECHAR_PEDIDO.NOME).clear().type(nome);
-  }
-  cy.get(DADOS_FECHAR_PEDIDO.TELEFONE).type(telefone);
-  cy.get(DADOS_FECHAR_PEDIDO.CEP).type(cep).wait(4000);
-  cy.get('.a-modal-scroller').click();
-  cy.get(DADOS_FECHAR_PEDIDO.NUMERO_RESIDENCIA).type(numero);
-  cy.get(DADOS_FECHAR_PEDIDO.USAR_ENDERECO).click();
-  */
+    if (nome) {
+      cy.get(DADOS_FECHAR_PEDIDO.NOME).clear().type(nome);
+    }
+    cy.get(DADOS_FECHAR_PEDIDO.TELEFONE).type(telefone);
+    cy.get(DADOS_FECHAR_PEDIDO.CEP).type(cep).wait(4000);
+    cy.get('.a-modal-scroller').click();
+    cy.get(DADOS_FECHAR_PEDIDO.NUMERO_RESIDENCIA).type(numero);
+    cy.get(DADOS_FECHAR_PEDIDO.USAR_ENDERECO).click();
+    */
 };
 
 export { adicionarQuantidade, adicionarAoCarrinho, fecharPedido };
